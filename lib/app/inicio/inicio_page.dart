@@ -7,26 +7,32 @@ import 'package:flutter/material.dart';
 import './inicio_controller.dart';
 
 class InicioPage extends StatelessWidget {
-    
-    const InicioPage({Key? key}) : super(key: key);
+  const InicioPage({Key? key}) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
-        return GetBuilder<InicioController>(
-          builder: (controller){
-            return Scaffold(
-            body: Obx(()=>IndexedStack(
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<InicioController>(builder: (controller) {
+      return Scaffold(
+        body: Obx(() => IndexedStack(
               index: controller.tabIndex.value,
-              children: const[
+              children: const [
                 HomePage(),
                 ProdutosPage(),
                 ComprasPage(),
                 RelatoriosPage(),
               ],
             )),
-            bottomNavigationBar: Obx(()=>BottomNavigationBar(
+        bottomNavigationBar: Obx(() => BottomNavigationBar(
+              backgroundColor: Colors.blueAccent, // cor de fundo
               unselectedItemColor: Colors.black,
-              selectedItemColor: Colors.red,
+              selectedItemColor: Colors.yellow,
+              elevation: 0,
+              iconSize: 20,
+              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              //selectedFontSize: 25,
+              selectedIconTheme:
+                  const IconThemeData(color: Colors.amberAccent, size: 25),
+
               onTap: (value) {
                 controller.chanceTabIndex(value);
                 controller.imprimeAppBar();
@@ -35,15 +41,17 @@ class InicioPage extends StatelessWidget {
               //showSelectedLabels: false,
               //showUnselectedLabels: true,
               items: [
-                controller.bottomNavagationBarItem(icon: Icons.home, label: 'HOME'),
-                controller.bottomNavagationBarItem(icon: Icons.production_quantity_limits, label: 'PRODUTOS'),
-                controller.bottomNavagationBarItem(icon: Icons.compare, label: 'COMPRAS'),
-                controller.bottomNavagationBarItem(icon: Icons.portrait, label: 'RELATÓRIOS'),
+                controller.bottomNavagationBarItem(
+                    icon: Icons.home, label: 'HOME'),
+                controller.bottomNavagationBarItem(
+                    icon: Icons.production_quantity_limits, label: 'PRODUTOS'),
+                controller.bottomNavagationBarItem(
+                    icon: Icons.compare, label: 'COMPRAS'),
+                controller.bottomNavagationBarItem(
+                    icon: Icons.portrait, label: 'RELATÓRIOS'),
               ],
             )),
-        );
-          });
-    }
-
-    
+      );
+    });
+  }
 }
